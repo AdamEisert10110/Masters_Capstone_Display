@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Data Table</title>
+	<link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
+</head>
+<body>
+
+<div id="table1">
+<table border="1">
+    <thead>
+        <tr>
+            {% for col in colnames2 %}
+            <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+	<div class="center">
+    <tbody>
+        {% for record in records2 %}
+        <tr>
+            {% for col in colnames2 %}
+            <td>{{ record[col] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+	</div>
+</table>
+</div>
+
+<div class="center">
+<table border="1">
+    <thead>
+        <tr>
+            {% for col in colnames3 %}
+            <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records3 %}
+        <tr>
+            {% for col in colnames3 %}
+            <td>{{ record[col] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<!--*
+<table class="center">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+</table>
+-->
+
+
+</body>
+</html>

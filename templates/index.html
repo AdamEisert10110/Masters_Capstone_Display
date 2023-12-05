@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run Python Script with Arguments</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
+	<!--- if nothing else works to force refresh, this will
+	<meta http-equiv="refresh" content="10">
+	--->
+</head>
+<body>
+
+	<div class="title">
+		<p> Disease Simulation </p>
+	</div>
+
+	<div class="subtitle">
+		<p>Parameters</p>
+	</div>
+
+	<div class="input">
+		<input type="text" id="argumentInput" placeholder="Number People">
+		<input type="text" id="arg2" placeholder="Simulation Length">
+		<input type="text" id="arg3" placeholder="Number Locations">
+	</div>
+	
+	<div class="input">
+		<input type="text" id="arg4" placeholder="Minimum Immunity (1-99)">
+		<input type="text" id="arg5" placeholder="Maximum Immunity (1-99)">
+		<input type="text" id="arg6" placeholder="Mortality Rate (1-1000)">
+	</div>
+	
+	<div id="run_sim">
+		<button id="runScriptButton">Run Simulation</button>
+	</div>
+
+    <script>
+        $(document).ready(function(){
+            $("#runScriptButton").click(function(){
+                var userInput = $("#argumentInput").val();
+				var arg2 = $("#arg2").val();
+				var arg3 = $("#arg3").val();
+				var arg4 = $("#arg4").val();
+				var arg5 = $("#arg5").val();
+				var arg6 = $("#arg6").val();
+				
+                $.ajax({
+                    url: '/run-script',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({	argument: userInput, 
+											argument2: arg2,
+											argument3: arg3,
+											argument4: arg4,
+											argument5: arg5,
+											argument6: arg6}),
+                    success: function(response) {
+                        //alert(response.message);
+                    }
+                });
+            });
+        });
+		
+		document.getElementById('igraph').contentWindow.location.reload();
+		
+    </script>
+	
+	<p align="center">
+	<iframe id="igraph" scrolling="no" style="border:none;" 
+		seamless="seamless" src="/show-plot" 
+		height="625" width="80%">	
+	</iframe>
+	</p>
+	
+    <script>
+        window.setInterval(function() {
+            reloadIFrame()
+        }, 10000);
+
+        function reloadIFrame() {
+            console.log('reloading..');
+            document.getElementById('igraph').contentWindow.location.reload();
+        }
+    </script>
+	
+	<div class="subtitle">
+	<text> Descriptive Statistics </text>
+	</div>
+	
+	<iframe id="igraph" scrolling="no" style="border:none;" 
+		seamless="seamless" src="/GetData" 
+		height="525" width="100%">	
+	</iframe>
+
+	
+	
+	
+</body>
+</html>
